@@ -37,12 +37,23 @@ module Lich
       #####
       ### Calculation Tables
       #####
-      def self.summation_chart(seed)
-        # TODO
+      def self.summation_chart(ranks)
+        seed = (1..10).to_a
+        bonus = (1..30).to_a
+        ranks = {}
+
+        seed.each do |s|
+          bonus.each do |b|
+            ranks[s] ||= {}
+            ranks[s][b] = (b ** 2 - b) / 2 + (b * s)
+          end
+        end
+
+        #echo JSON.pretty_generate(ranks[1])
       end
 
       def self.flat_chart(value)
-        # TODO  bonus is active at value
+        return value if value.is_a?(Integer)
       end
 
       def self.divide_truncate_chart(divisor)
