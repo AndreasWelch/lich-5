@@ -146,6 +146,32 @@ module Lich
       def Char.che
         Infomon.get('che') if XMLData.game =~ /^GS/
       end
+
+      def Char.wisdom_of_the_ages
+        wota_data = {
+          :wota_available  => false,
+          :months          => 0,
+          :fxp_size_bonus  => 0,
+          :absorb_bonus    => 0,
+          :chance_round_up => 0
+        }
+
+        if Account.subscription =~ "NORMAL"
+          wota_data[:wota_available] = true
+          wota_data[:months] = 0 ## infomon scan?
+          wota_data[:fxp_size_bonus] = wota_data[:months] * 2
+          wota_data[:absorb_bonus] = 0
+          wota_data[:chance_round_up] = 0
+        elsif Account.subscription =~ "PREMIUM"
+          wota_data[:wota_available] = true
+          wota_data[:months] = 0 ## infomon scan?
+          wota_data[:fxp_size_bonus] = wota_data[:months] * 2
+          wota_data[:absorb_bonus] = 0.1 * wota_data[:months]
+          wota_data[:chance_round_up] = (wota_data[:absorb_bonus] % 1).round(2) * 100
+        end
+
+        return wota_data
+      end
     end
   end
 end
