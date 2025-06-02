@@ -29,16 +29,9 @@ module Lich
       return container_to_check
     end
 
-    def self.try_or_fail(seconds: 2, command: nil)
-      fput(command)
-      expiry = Time.now + seconds
-      wait_until do yield or Time.now > expiry end
-      fail "Error[command: #{command}, seconds: #{seconds}]" if Time.now > expiry
-    end
-
     def self.add_to_bag(bag, item)
       bag = container(bag)
-      try_or_fail(command: "_drag ##{item.id} ##{bag.id}") do
+      try_or_fail(command: "_drag ##{item.id} ##{bag.id}", seconds: 2) do
         20.times {
           return true if ![GameObj.right_hand, GameObj.left_hand].map(&:id).compact.include?(item.id) && @weapon_displayer.include?(bag.id)
           return true if (![GameObj.right_hand, GameObj.left_hand].map(&:id).compact.include?(item.id) and bag.contents.to_a.map(&:id).include?(item.id))
@@ -50,7 +43,7 @@ module Lich
     end
 
     def self.wear_to_inv(item)
-      try_or_fail(command: "wear ##{item.id}") do
+      try_or_fail(command: "wear ##{item.id}", seconds: 2) do
         20.times {
           return true if (![GameObj.right_hand, GameObj.left_hand].map(&:id).compact.include?(item.id) and GameObj.inv.to_a.map(&:id).include?(item.id))
           return true if item.name =~ /^ethereal \w+$/ && ![GameObj.right_hand, GameObj.left_hand].map(&:id).compact.include?(item.id)

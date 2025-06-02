@@ -2498,6 +2498,15 @@ def alias_deprecated
   echo "The alias command you're attempting to use is deprecated.  Fix your script."
 end
 
+def self.try_or_fail(seconds: 5, command: nil, tries: 0, max: 3, &block)
+  waitrt?
+  fput(command)
+  expiry = Time.now + seconds
+  wait_until do yield or Time.now > expiry end
+  return try_or_fail(seconds: seconds, command: command, tries: tries + 1, &block) if Time.now > expiry && tries < max
+  fail "Error[command: #{command}, seconds: #{seconds}]" if Time.now > expiry && tries > max
+end
+
 ## Alias block from Lich (needs further cleanup)
 
 undef :abort
