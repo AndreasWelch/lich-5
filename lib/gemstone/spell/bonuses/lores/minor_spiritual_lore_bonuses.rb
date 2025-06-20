@@ -191,13 +191,13 @@ module Lich
           },
           "open cast area version additional ensnare charges"        => {
             :description     => "additional ensnare chances for the open cast version (base 2)",
-            :chart           => fixed_spacing([5, 15, 30, 50, 75, 105, 140, 180]),
+            :chart           => fixed_spacing_chart([5, 15, 30, 50, 75, 105, 140, 180]),
             :bonus_type      => :activations,
             :bonus_amount    => 1,
             :bonus_to        => "quantity",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skill.spiritual_lore_summoning,
+            :lore_used       => Skills.spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           },
@@ -209,7 +209,7 @@ module Lich
             :bonus_to        => "chance",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skill.spiritual_lore_summoning,
+            :lore_used       => Skills.spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           },
@@ -267,7 +267,7 @@ module Lich
           },
           "reduce buildup time"                     => {
             :description     => "reduce the time needed to buildup the cloud",
-            :chart           => fixed_spacing([10, 20, 30, 40, 50, 60, 70]),
+            :chart           => fixed_spacing_chart([10, 20, 30, 40, 50, 60, 70]),
             :bonus_amount    => -4,
             :bonus_type      => :time,
             :bonus_to        => "duration",
@@ -279,9 +279,9 @@ module Lich
           }
         },
         130 => {
-          "decrease random range of the landing location" => {
+          "decrease landing location variance" => {
             :description     => "reduces the random range of the landing location",
-            :chart           => divide_truncate_chart(summation_chart(10)), # TODO: this doesn't actually work, even though it represents what needs to happen
+            :chart           => divide_truncate_chart_from(summation_chart(10), 2),
             :bonus_amount    => 0,
             :bonus_type      => :units,
             :bonus_to        => "deviation range",
