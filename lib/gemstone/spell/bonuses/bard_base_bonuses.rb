@@ -1,7 +1,7 @@
 module Lich
   module Gemstone
-    module SpellLoreBonuses
-      SpellLoreBonuses.table[:empath_base] = {
+    module Spell
+      SpellBonuses.table[:bard_base] = {
         000 => {
           "effect" => {
             :description     => "",
@@ -10,7 +10,7 @@ module Lich
             :bonus_to        => "",
             :chart           => chart_function(),
             :duration        => 0,
-            :lore_used       => Skills.type_of_lore,
+            :skill_used      => :type_of_lore,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -23,7 +23,7 @@ module Lich
             :bonus_to        => "",
             :chart           => chart_function(),
             :duration        => 0,
-            :lore_used       => Skills.type_of_lore,
+            :skill_used      => :type_of_lore,
             :repetions       => 999,
             :repeat_modifier => 0
           }

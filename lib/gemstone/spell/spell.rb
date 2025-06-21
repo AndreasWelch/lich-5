@@ -1,5 +1,4 @@
-require_relative 'bonuses/lores/spell_lores_bonuses'
-require_relative 'bonuses/skills/spell_skill_bonuses'
+require_relative 'bonuses/spell_bonuses'
 
 module Lich
   module Gemstone

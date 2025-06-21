@@ -1,7 +1,7 @@
 module Lich
   module Gemstone
-    module SpellLoreBonuses
-      SpellLoreBonuses.table[:major_spiritual] = {
+    module Spell
+      SpellBonuses.table[:major_spiritual] = {
         203 => {
           "increase max mana" => {
             :description     => "increases the consumer's maximum mana",
@@ -11,7 +11,7 @@ module Lich
             :bonus_to        => "max mana",
             :bonus_max       => 50,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -22,10 +22,10 @@ module Lich
             :chart           => summation_chart(2),
             :bonus_amount    => 1,
             :bonus_type      => :ranks,
-            :bonus_to        => "First Aid",
+            :bonus_to        => "first aid ranks",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -39,7 +39,7 @@ module Lich
             :bonus_to        => "enable",
             :bonus_max       => 0,
             :duration        => 7740, # 2 hours + 60/major spirit rank - this is the minimum time if knowning the spell
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -53,7 +53,7 @@ module Lich
             :bonus_to        => "enable",
             :bonus_max       => 0,
             :duration        => 60,
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -64,10 +64,10 @@ module Lich
             :chart           => summation_chart(5),
             :bonus_amount    => -1,
             :bonus_type      => :units,
-            :bonus_to        => "target TD",
+            :bonus_to        => "target target defensive",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -81,7 +81,7 @@ module Lich
             :bonus_to        => "effectiveness",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           },
@@ -93,7 +93,7 @@ module Lich
             :bonus_to        => "effectiveness",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -107,7 +107,7 @@ module Lich
             :bonus_to        => "enable",
             :bonus_max       => 0,
             :duration        => 60,
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           },
@@ -116,10 +116,10 @@ module Lich
             :chart           => flat_chart(35),
             :bonus_amount    => 1,
             :bonus_type      => :units,
-            :bonus_to        => "Char.AS",
+            :bonus_to        => "attack strength",
             :bonus_max       => 0,
             :duration        => 60,
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -130,10 +130,10 @@ module Lich
             :chart           => summation_chart(1),
             :bonus_amount    => -1,
             :bonus_type      => :units,
-            :bonus_to        => "Target TD",
+            :bonus_to        => "target target defensive",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -144,10 +144,10 @@ module Lich
             :chart           => summation_chart(5),
             :bonus_amount    => -1,
             :bonus_type      => :units,
-            :bonus_to        => "Target TD",
+            :bonus_to        => "target target defensive",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -161,7 +161,7 @@ module Lich
             :bonus_to        => "duration",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           },
@@ -173,7 +173,7 @@ module Lich
             :bonus_to        => "duration",
             :bonus_max       => 0,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -187,7 +187,7 @@ module Lich
             :bonus_to        => "affecting group",
             :bonus_max       => 0,
             :duration        => 120,
-            :lore_used       => Skills.spiritual_lore_blessings,
+            :skill_used      => :spiritual_lore_blessings,
             :repetions       => 999,
             :repeat_modifier => 0
           }
@@ -201,7 +201,7 @@ module Lich
             :bonus_to        => "probability",
             :bonus_max       => 100,
             :duration        => 0,
-            :lore_used       => Skills.spiritual_lore_summoning,
+            :skill_used      => :spiritual_lore_summoning,
             :repetions       => 999,
             :repeat_modifier => 0
           }
