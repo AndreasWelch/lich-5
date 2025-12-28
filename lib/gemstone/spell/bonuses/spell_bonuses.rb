@@ -1,5 +1,5 @@
-# required template for a lore bonus
-# note that spells can have multiple effects
+# required template for spell bonuses
+# note that spells can have multiple effects from various sources (lores, skills, stats, etc.)
 #  GENERIC:                                                          <<-- the spell circle name
 #    000:                                                            <<-- the spell number/id
 #      "effect name"                                                 <<-- basic name of the effect
@@ -10,7 +10,7 @@
 #        :bonus_to: UNSPECIFIED                                      <<-- what the bonus actually applies to
 #        :bonus_max: 0                                               <<-- maximum bonus capped at, even if theoretically more is possible, 0 is no cap
 #        :duration: UNSPECIFIED                                      <<-- duration of the bonus, if applicable, use 0 if not
-#        :skill_used: Skills.type_of_lore                             <<-- lore to calculate off, Skills.to_bonus(:type_of_lore) for bonus instead of ranks
+#        :skill_used: :skill_or_lore_name                            <<-- skill/lore/stat to calculate off (e.g., :spiritual_lore_blessings, :multi_opponent_combat)
 #        :repetitions: 999                                           <<-- number of times the ability can repeat, use 999 for infinite
 #        :repeat_modifier: 0                                         <<-- % modifier of chance to recur bonus
 
@@ -48,7 +48,7 @@ module Lich
         # @param [String] effect_name The effect name as written in the table
         # @return [Hash, nil] The effect hash or nil if not found
         def self.effect_for(circle, spell_id, effect_name)
-          table = SpellLoreBonuses.table
+          table = SpellBonuses.table
           return nil unless table[circle]
           return nil unless table[circle][spell_id]
           table[circle][spell_id][effect_name]
@@ -84,7 +84,7 @@ module Lich
         # @param [Integer] spell_id The spell number
         # @return [String] Formatted string for all effects of the spell
         def self.pretty_spell(circle, spell_id)
-          table = SpellLoreBonuses.table
+          table = SpellBonuses.table
           return "(nil)" unless table[circle] && table[circle][spell_id]
 
           effects = table[circle][spell_id]
@@ -104,7 +104,7 @@ module Lich
         # @param [Symbol] circle The spell circle symbol
         # @return [String] All spells and effects in the circle
         def self.pretty_circle(circle)
-          table = SpellLoreBonuses.table
+          table = SpellBonuses.table
           return "(nil)" unless table[circle]
 
           output = ["=== Spell Circle: #{circle.to_s.tr('_', ' ').capitalize} ==="]
@@ -121,7 +121,7 @@ module Lich
         #
         # @return [Hash{Symbol => Hash{Integer => Hash}}] Full spell table
         def self.table
-          SpellLoreBonuses.table
+          SpellBonuses.table
         end
 
         ##
@@ -210,8 +210,8 @@ module Lich
       end
 
       ##
-      # LoreBonusEvaluator handles logic for computing the actual lore-based
-      # bonus of a spell effect given a number of trained lore ranks.
+      # SpellBonusEvaluator handles logic for computing the actual bonus
+      # of a spell effect given skill/lore/stat ranks or bonuses.
       #
       # Supports evaluation of:
       # - a single effect
@@ -226,8 +226,8 @@ module Lich
         ##
         # Evaluates the current total bonus from a spell effect for a given character.
         #
-        # @param [Hash] effect A spell effect hash from SpellLoreBonuses.table
-        # @param [Integer] ranks The number of lore ranks trained (default: from :skill_used if available)
+        # @param [Hash] effect A spell effect hash from SpellBonuses.table
+        # @param [Integer] ranks The number of skill/lore/stat ranks trained (default: from :skill_used if available)
         # @return [Numeric, nil] The total bonus amount, or nil if invalid
         #
         # @example
@@ -261,14 +261,14 @@ module Lich
         #
         # @param [Symbol] circle The spell circle symbol
         # @param [Integer] spell_id The spell number
-        # @param [Integer] ranks The lore ranks to use for evaluation
+        # @param [Integer] ranks The skill/lore ranks to use for evaluation
         # @return [Hash{String => Numeric}] Hash of effect names and their current bonuses
         #
         # @example
-        #   LoreBonusEvaluator.evaluate_spell(:minor_spiritual, 104, 50)
+        #   SpellBonusEvaluator.evaluate_spell(:minor_spiritual, 104, 50)
         def self.evaluate_spell(circle, spell_id, ranks)
           result = {}
-          spell = SpellLoreBonuses.table.dig(circle, spell_id)
+          spell = SpellBonuses.table.dig(circle, spell_id)
           return result unless spell
 
           spell.each do |name, effect|
@@ -282,14 +282,14 @@ module Lich
         # Evaluates all spells in a circle and returns a hash of spell_id => effect bonuses.
         #
         # @param [Symbol] circle The spell circle
-        # @param [Integer] ranks The number of relevant lore ranks
+        # @param [Integer] ranks The number of relevant skill/lore ranks
         # @return [Hash{Integer => Hash{String => Numeric}}]
         #
         # @example
-        #   LoreBonusEvaluator.evaluate_circle(:minor_spiritual, 60)
+        #   SpellBonusEvaluator.evaluate_circle(:minor_spiritual, 60)
         def self.evaluate_circle(circle, ranks)
           result = {}
-          spells = SpellLoreBonuses.table[circle]
+          spells = SpellBonuses.table[circle]
           return result unless spells
 
           spells.each do |spell_id, _|
@@ -300,39 +300,39 @@ module Lich
         end
 
         ##
-        # Evaluates all effects for a given spell and lore rank.
+        # Evaluates all effects for a given spell and skill/lore rank.
         #
         # @param [Symbol] spell_circle The symbol representing the spell circle (e.g. `:minor_spiritual`)
         # @param [Integer] spell_id The spell number (e.g. `104`)
-        # @param [Integer] lore_ranks The number of ranks trained in the relevant lore
+        # @param [Integer] skill_ranks The number of ranks trained in the relevant skill/lore
         # @return [Hash{String => Numeric}] A hash of effect names to evaluated bonus values
         #
         # @example
-        #   LoreBonusEvaluator.evaluate_all_effects_for_spell(:minor_spiritual, 104, 50)
+        #   SpellBonusEvaluator.evaluate_all_effects_for_spell(:minor_spiritual, 104, 50)
         #   # => { "increased disease resistance" => 10 }
-        def self.evaluate_all_effects_for_spell(spell_circle, spell_id, lore_ranks)
-          effects = LoreBonusFormatter.all_effects_for_spell(spell_circle, spell_id)
+        def self.evaluate_all_effects_for_spell(spell_circle, spell_id, skill_ranks)
+          effects = SpellBonusFormatter.all_effects_for_spell(spell_circle, spell_id)
           return {} unless effects.is_a?(Hash)
 
           effects.each_with_object({}) do |(effect_name, effect_data), results|
-            bonus = effective_bonus_for_rank(effect_data, lore_ranks)
+            bonus = effective_bonus_for_rank(effect_data, skill_ranks)
             results[effect_name] = bonus
           end
         end
 
         ##
-        # Evaluates all spells in a given spell circle at the specified lore rank.
+        # Evaluates all spells in a given spell circle at the specified skill/lore rank.
         #
         # @param [Symbol] spell_circle The spell circle symbol (e.g. `:minor_spiritual`)
-        # @param [Integer] lore_ranks The number of trained lore ranks
+        # @param [Integer] skill_ranks The number of trained skill/lore ranks
         # @return [Hash{Integer => Hash{String => Numeric}}] A hash mapping spell IDs to their effect bonuses
         #
         # @example
-        #   LoreBonusEvaluator.evaluate_all_spells_for_circle(:minor_spiritual, 75)
+        #   SpellBonusEvaluator.evaluate_all_spells_for_circle(:minor_spiritual, 75)
         #   # => { 104 => { "increased disease resistance" => 12 }, 105 => { ... } }
-        def self.evaluate_all_spells_for_circle(spell_circle, lore_ranks)
-          LoreBonusFormatter.all_spell_ids(spell_circle).each_with_object({}) do |spell_id, results|
-            results[spell_id] = evaluate_all_effects_for_spell(spell_circle, spell_id, lore_ranks)
+        def self.evaluate_all_spells_for_circle(spell_circle, skill_ranks)
+          SpellBonusFormatter.all_spell_ids(spell_circle).each_with_object({}) do |spell_id, results|
+            results[spell_id] = evaluate_all_effects_for_spell(spell_circle, spell_id, skill_ranks)
           end
         end
       end
