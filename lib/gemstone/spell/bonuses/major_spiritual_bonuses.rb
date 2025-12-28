@@ -12,7 +12,7 @@ module Lich
             :bonus_max       => 50,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -26,7 +26,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -40,7 +40,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 7740, # 2 hours + 60/major spirit rank - this is the minimum time if knowning the spell
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -54,7 +54,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 60,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -68,7 +68,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -82,7 +82,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "reduce the failure chance of the spell" => {
@@ -94,7 +94,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -108,7 +108,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 60,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "attack strength increase" => {
@@ -120,7 +120,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 60,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -134,7 +134,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -148,7 +148,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -162,7 +162,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "increase preservation duration over 100 ranks" => {
@@ -174,7 +174,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -188,7 +188,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 120,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -202,7 +202,7 @@ module Lich
             :bonus_max       => 100,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         }

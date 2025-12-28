@@ -14,7 +14,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999, # infinite
+            :repetitions       => 999, # infinite
             :repeat_modifier => 0
           }
         },
@@ -28,7 +28,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -42,7 +42,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 30,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -56,7 +56,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -71,7 +71,7 @@ module Lich
             :duration        => 0,
             :skill_used      => nil,
             :bonus_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -85,7 +85,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "additional potential splash targets" => {
@@ -97,7 +97,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -111,7 +111,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -125,7 +125,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "enable trace back"                => {
@@ -137,7 +137,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 30,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "enable near-adjacent realm range" => {
@@ -149,7 +149,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "enable far realms range"          => {
@@ -161,7 +161,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -175,7 +175,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => -50
           }
         },
@@ -189,7 +189,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "open cast area version additional ensnare charges"        => {
@@ -201,7 +201,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "bolt version additional chance to apply webbed condition" => {
@@ -213,7 +213,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "bolt version additional damage factor"                    => {
@@ -225,7 +225,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -239,7 +239,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_blessings,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -253,7 +253,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "everyone: enable indoor casting"         => {
@@ -265,7 +265,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           },
           "reduce buildup time"                     => {
@@ -277,7 +277,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         },
@@ -291,7 +291,7 @@ module Lich
             :bonus_max       => 0,
             :duration        => 0,
             :skill_used      => :spiritual_lore_summoning,
-            :repetions       => 999,
+            :repetitions       => 999,
             :repeat_modifier => 0
           }
         }

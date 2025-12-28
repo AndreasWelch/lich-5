@@ -11,7 +11,7 @@ module Lich
             :chart           => chart_function,
             :duration        => 0,
             :skill_used      => :type_of_lore,
-            :repetions       => 999,
+            :repetitions     => 999,
             :repeat_modifier => 0
           }
         },
@@ -24,7 +24,7 @@ module Lich
             :chart           => chart_function,
             :duration        => 0,
             :skill_used      => :type_of_lore,
-            :repetions       => 999,
+            :repetitions     => 999,
             :repeat_modifier => 0
           }
         }

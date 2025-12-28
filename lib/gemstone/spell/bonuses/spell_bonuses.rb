@@ -11,7 +11,7 @@
 #        :bonus_max: 0                                               <<-- maximum bonus capped at, even if theoretically more is possible, 0 is no cap
 #        :duration: UNSPECIFIED                                      <<-- duration of the bonus, if applicable, use 0 if not
 #        :skill_used: Skills.type_of_lore                             <<-- lore to calculate off, Skills.to_bonus(:type_of_lore) for bonus instead of ranks
-#        :repetions: 999                                             <<-- number of times the ability can repeat, use 999 for infinite
+#        :repetitions: 999                                           <<-- number of times the ability can repeat, use 999 for infinite
 #        :repeat_modifier: 0                                         <<-- % modifier of chance to recur bonus
 
 include Lich::Util::ChartCalculator
@@ -72,7 +72,7 @@ module Lich
             "  Max Bonus        : #{effect[:bonus_max]}",
             "  Duration         : #{effect[:duration]} sec",
             "  Lore Used        : #{effect[:skill_used]}",
-            "  Repetitions      : #{effect[:repetions]}",
+            "  Repetitions      : #{effect[:repetitions]}",
             "  Repeat Modifier  : #{effect[:repeat_modifier]}%",
           ].join("\n")
         end
@@ -344,14 +344,14 @@ end
 require_relative 'arcane_bonuses'
 require_relative 'bard_base_bonuses'
 require_relative 'cleric_base_bonuses'
-require_relative 'empathic_bonuses'
+require_relative 'empath_base_bonuses'
 require_relative 'major_elemental_bonuses'
 require_relative 'major_mental_bonuses'
 require_relative 'major_spiritual_bonuses'
 require_relative 'minor_elemental_bonuses'
 require_relative 'minor_mental_bonuses'
 require_relative 'minor_spiritual_bonuses'
-require_relative 'paladin_bonuses'
+require_relative 'paladin_base_bonuses'
 require_relative 'ranger_base_bonuses'
 require_relative 'savant_base_bonuses'
 require_relative 'sorcerer_base_bonuses'
