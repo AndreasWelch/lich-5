@@ -25,6 +25,7 @@ module Lich
       @@cached_ball_charts = {}
       @@cached_per_x_ranks_charts = {}
       @@cached_fixed_spacing_charts = {}
+      @@cached_base_plus_per_ranks_charts = {}
 
       ##
       # Generates a summation chart mapping ranks (1 to 400) to bonuses, or a compact grouped version.
@@ -348,6 +349,47 @@ module Lich
         else
           Math.sqrt(8 * ranks + seed * seed).then { |root| ((root - seed) / 2).floor }
         end
+      end
+
+      ##
+      # Returns a chart with a base bonus that increases incrementally every X ranks after a starting threshold.
+      #
+      # This provides a "base + incremental" progression:
+      # - Below `start_rank`: 0 bonus
+      # - At and above `start_rank`: `base_bonus + floor((rank - start_rank) / per_rank) * bonus_per_threshold`
+      #
+      # Useful for effects like: "Base +10, then +5 every 20 ranks starting at rank 50"
+      #
+      # Result is cached and returned as a duplicate to prevent mutation.
+      #
+      # @param [Integer] start_rank The rank at which bonuses begin (0 bonus below this).
+      # @param [Integer] base_bonus The initial bonus granted at start_rank.
+      # @param [Integer] per_rank Number of ranks required for each additional bonus increment.
+      # @param [Integer] bonus_per_threshold The bonus amount added for each threshold passed (default: 1).
+      # @return [Hash{Integer => Integer}] A chart mapping each rank to its calculated bonus.
+      #
+      # @example Base 10, +1 every 5 ranks starting at rank 25
+      #   ChartCalculator.base_plus_per_ranks_chart(25, 10, 5, 1)
+      #   # Rank 24 => 0, Rank 25 => 10, Rank 30 => 11, Rank 50 => 15
+      #
+      # @example Base 20, +5 every 10 ranks starting at rank 10
+      #   ChartCalculator.base_plus_per_ranks_chart(10, 20, 10, 5)
+      #   # Rank 9 => 0, Rank 10 => 20, Rank 20 => 25, Rank 50 => 40
+      def self.base_plus_per_ranks_chart(start_rank, base_bonus, per_rank, bonus_per_threshold)
+        return {} unless [start_rank, base_bonus, per_rank, bonus_per_threshold].all? { |n| n.is_a?(Integer) && n >= 0 }
+
+        key = [start_rank, base_bonus, per_rank, bonus_per_threshold]
+
+        @@cached_base_plus_per_ranks_charts[key] ||= (1..400).each_with_object({}) do |rank, chart|
+          if rank < start_rank
+            chart[rank] = 0
+          else
+            thresholds_passed = ((rank - start_rank) / per_rank.to_f).floor
+            chart[rank] = base_bonus + (thresholds_passed * bonus_per_threshold)
+          end
+        end
+
+        @@cached_base_plus_per_ranks_charts[key].dup
       end
     end
   end
