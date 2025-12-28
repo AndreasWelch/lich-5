@@ -8,9 +8,10 @@
 #        :bonus_amount: 0                                            <<-- the bonus added per step, based on chart
 #        :bonus_type: [percent, ability, units, time, ranks, bonus]  <<-- the type of bonus, i.e. units, percent, effect
 #        :bonus_to: UNSPECIFIED                                      <<-- what the bonus actually applies to
-#        :bonus_max: 0                                               <<-- maximum bonus capped at, even if theoretically more is possible, 0 is no cap
+#        :bonus_max: 0                                               <<-- maximum bonus capped at, even if theoretically more is possible, 0 is no cap, can be lambda
 #        :duration: UNSPECIFIED                                      <<-- duration of the bonus, if applicable, use 0 if not
-#        :skill_used: :skill_or_lore_name                            <<-- skill/lore/stat to calculate off (e.g., :spiritual_lore_blessings, :multi_opponent_combat)
+#        :skill_used: :skill_or_lore_name                            <<-- skill/lore/stat to calculate off (e.g., :spiritual_lore_blessings, :multi_opponent_combat), can be nil
+#        :bonus_used: :skill_or_lore_name                            <<-- uses skill BONUS instead of ranks (optional, defaults to nil)
 #        :repetitions: 999                                           <<-- number of times the ability can repeat, use 999 for infinite
 #        :repeat_modifier: 0                                         <<-- % modifier of chance to recur bonus
 
@@ -249,8 +250,15 @@ module Lich
           bonus_step = chart[ranks.to_i] || 0
           bonus_total = bonus_step * effect[:bonus_amount]
 
-          if effect[:bonus_max].to_i > 0
-            [bonus_total, effect[:bonus_max]].min
+          # Handle bonus_max - can be lambda, integer, or nil/0
+          max_bonus = if effect[:bonus_max].respond_to?(:call)
+                        effect[:bonus_max].call
+                      else
+                        effect[:bonus_max]
+                      end
+
+          if max_bonus.to_i > 0
+            [bonus_total, max_bonus].min
           else
             bonus_total
           end
@@ -315,7 +323,7 @@ module Lich
           return {} unless effects.is_a?(Hash)
 
           effects.each_with_object({}) do |(effect_name, effect_data), results|
-            bonus = effective_bonus_for_rank(effect_data, skill_ranks)
+            bonus = evaluate_bonus(effect_data, skill_ranks)
             results[effect_name] = bonus
           end
         end
